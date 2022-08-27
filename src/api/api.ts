@@ -1,22 +1,41 @@
 import axios from 'axios'
 import {DatabaseType} from '../@types/types'
-axios.create({
+
+const instance = axios.create({
     baseURL: 'https://63086e9446372013f57d0917.mockapi.io/'
 })
 
-const API = {
+export const API = {
     getData: () => {
-        axios.get('database')
+        return instance.get('database')
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
-    getCard: () => {
-        axios.get('card')
+    getCart: () => {
+        return instance.get('cart')
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
-    addCard: (obj: DatabaseType) => {
-      axios.post('card', obj)
+    addCart: (obj: DatabaseType) => {
+        return instance.post('cart', obj)
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
-    deleteCard: (id: number) => {
-        axios.delete(`card/${id}`)
+    deleteCart: (id: number) => {
+        return instance.delete(`cart/${id}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
+    addFav: (obj: DatabaseType) => {
+        return instance.post('favourites', obj)
+            .then(res => res.data)
+            .catch(err => console.log(err))
+    },
+    deleteFav: (id: number) => {
+        return instance.delete(`favourites/${id}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
+    }
 }
 
 
