@@ -6,7 +6,7 @@ const instance = axios.create({
 })
 
 export const API = {
-    getData: () => {
+    getItems: () => {
         return instance.get('database')
             .then(res => res.data)
             .catch(err => console.log(err))
@@ -23,6 +23,11 @@ export const API = {
     },
     deleteCart: (id: number) => {
         return instance.delete(`cart/${id}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
+    },
+    getFavourites: () => {
+        return instance.get('favourites')
             .then(res => res.data)
             .catch(err => console.log(err))
     },
