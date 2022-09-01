@@ -31,3 +31,4 @@ export const Catalog: FC = () => {
             </Grid>
         </Grid>)
 }
+
