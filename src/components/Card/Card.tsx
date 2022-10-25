@@ -12,3 +12,5 @@ export const Card: FC<{ i: DatabaseType }> = ({i}) => {
         <Paper>{i.price}</Paper>
     </Grid>
 }
+
+// добавить visibility hidden для цены старой и высоту нейму

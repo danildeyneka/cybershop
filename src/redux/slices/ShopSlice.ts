@@ -14,6 +14,12 @@ export const shopSlice = createSlice({
         setItems: (state, action: PayloadAction<DatabaseType[]>) => {
             state.items = action.payload
         },
+        addItem: (state, action: PayloadAction<DatabaseType>) => {
+            state.items = [...state.items, action.payload]
+        }, // admin
+        removeItems: (state, action: PayloadAction<number>) => {
+            state.items.filter(i => i.id !== action.payload)
+        }, // admin
         setCart: (state, action: PayloadAction<DatabaseType[]>) => {
             state.cart = action.payload
         },

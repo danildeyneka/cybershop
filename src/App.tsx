@@ -12,8 +12,9 @@ export const App: FC = () => {
         <Header/>
         <Routes>
             <Route path="/" element={<Catalog/>}/>
-            <Route path="/cart" element={<Cart/>}/>
-            <Route path="/favourites" element={<Favourites/>}/>
+            <Route path="cart" element={<Cart/>}/>
+            <Route path="favourites" element={<Favourites/>}/>
+            <Route path="admin" element={<div>admin</div>}/>
             <Route path="*" element={<Navigate to="/"/>}/>
         </Routes>
         <Footer/>
