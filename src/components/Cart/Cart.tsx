@@ -1,18 +1,18 @@
 import {FC, useEffect} from 'react'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {API} from '../../api/api'
-import {catalogActions} from '../../redux/slices/ShopSlice'
 import {Card} from '../Card/Card'
+import {cartActions} from '../../redux/slices/CartSlice'
 
 export const Cart: FC = () => {
-    const cart = useAppSelector(state => state.catalog.cart)
+    const cart = useAppSelector(state => state.cart.cart)
     const mappedCart = cart?.map(item => <Card i={item}/>)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         const setData = async () => {
             const data = await API.getCart()
-            dispatch(catalogActions.setCart(data))
+            dispatch(cartActions.setCart(data))
         }
         setData()
     }, [])

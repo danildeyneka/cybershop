@@ -1,19 +1,19 @@
 import {FC, useEffect} from 'react'
 import {API} from '../../api/api'
-import {catalogActions} from '../../redux/slices/ShopSlice'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {Card} from '../Card/Card'
+import {favouritesActions} from '../../redux/slices/FavouritesSlice'
 
 
 export const Favourites: FC = () => {
-    const favourites = useAppSelector(state => state.catalog.favourites)
+    const favourites = useAppSelector(state => state.favourites.favourites)
     const mappedFavourites = favourites?.map(item => <Card i={item}/>)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         const setData = async () => {
             const data = await API.getFavourites()
-            dispatch(catalogActions.setFavourites(data))
+            dispatch(favouritesActions.setFavourites(data))
         }
         setData()
     }, [])
