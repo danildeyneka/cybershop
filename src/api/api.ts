@@ -5,12 +5,25 @@ const instance = axios.create({
     baseURL: 'https://63086e9446372013f57d0917.mockapi.io/'
 })
 
-export const API = {
+export const catalogApi = {
     getItems: () => {
         return instance.get('database')
             .then(res => res.data)
             .catch(err => console.log(err))
     },
+    addItem: (obj: DatabaseType) => {
+        return instance.post('database', obj)
+            .then(res => res.data)
+            .catch(err => console.log(err))
+    },
+    deleteItem: (id: number) => {
+        return instance.delete(`database/${id}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
+    }
+}
+
+export const cartApi = {
     getCart: () => {
         return instance.get('cart')
             .then(res => res.data)
@@ -25,7 +38,10 @@ export const API = {
         return instance.delete(`cart/${id}`)
             .then(res => res.data)
             .catch(err => console.log(err))
-    },
+    }
+}
+
+export const favouritesApi = {
     getFavourites: () => {
         return instance.get('favourites')
             .then(res => res.data)
@@ -42,7 +58,6 @@ export const API = {
             .catch(err => console.log(err))
     }
 }
-
 
 // const db: DatabaseType[] = [
 //     {

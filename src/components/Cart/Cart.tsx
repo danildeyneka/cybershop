@@ -1,6 +1,6 @@
 import {FC, useEffect} from 'react'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
-import {API} from '../../api/api'
+import {cartApi} from '../../api/api'
 import {Card} from '../Card/Card'
 import {cartActions} from '../../redux/slices/CartSlice'
 
@@ -11,7 +11,7 @@ export const Cart: FC = () => {
 
     useEffect(() => {
         const setData = async () => {
-            const data = await API.getCart()
+            const data = await cartApi.getCart()
             dispatch(cartActions.setCart(data))
         }
         setData()

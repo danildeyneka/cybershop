@@ -1,5 +1,16 @@
-* {
-  font-family: Roboto, serif;
+:root {
+  font-family: 'Montserrat', sans-serif;
+  $colorBlue: #407899;
+  $colorLightBlue: #41D3BD;
+  $colorClaret: #6D1A36;
+  $colorCitrus: #DACC3E;
+  $colorOrange: #FF4000;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

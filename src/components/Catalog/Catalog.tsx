@@ -1,8 +1,8 @@
 import {FC, useEffect} from 'react'
 import {Grid} from '@mui/material'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
-import {API} from '../../api/api'
-import {catalogActions} from '../../redux/slices/CatalogSlice'
+import {catalogApi} from '../../api/api'
+import {catalogActions, setItems} from '../../redux/slices/CatalogSlice'
 import {Card} from '../Card/Card'
 import {Filters} from './Filters/Filters'
 
@@ -13,16 +13,18 @@ export const Catalog: FC = () => {
 
     useEffect(() => {
         // const setData = async () => {
-        //     const data = await API.getItems()
+        //     const data = await catalogApi.getItems()
         //     dispatch(catalogActions.setItems(data))
         // }
-        // setData() // все ок работает тест async-thunk
+        // setData()
+        // все ок работает тест async-thunk
+        dispatch(setItems())
+
     }, [])
 
     if (items.length === 0) return <div>Loading...</div>
     return (
         <Grid container>
-            <Grid item xs={1}/>
             <Grid item xs={2}>
                 <Filters/>
             </Grid>

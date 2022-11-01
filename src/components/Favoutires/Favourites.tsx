@@ -1,5 +1,5 @@
 import {FC, useEffect} from 'react'
-import {API} from '../../api/api'
+import {favouritesApi} from '../../api/api'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {Card} from '../Card/Card'
 import {favouritesActions} from '../../redux/slices/FavouritesSlice'
@@ -12,7 +12,7 @@ export const Favourites: FC = () => {
 
     useEffect(() => {
         const setData = async () => {
-            const data = await API.getFavourites()
+            const data = await favouritesApi.getFavourites()
             dispatch(favouritesActions.setFavourites(data))
         }
         setData()
