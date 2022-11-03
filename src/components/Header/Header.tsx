@@ -1,6 +1,5 @@
 import {FC} from 'react'
 import {AppBar, Box, Toolbar} from '@mui/material'
-import './Header.scss'
 import {Link} from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 

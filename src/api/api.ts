@@ -8,36 +8,30 @@ const instance = axios.create({
 export const catalogApi = {
     getItems: () => {
         return instance.get('database')
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     },
     addItem: (obj: DatabaseType) => {
         return instance.post('database', obj)
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     },
     deleteItem: (id: number) => {
         return instance.delete(`database/${id}`)
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     }
 }
 
 export const cartApi = {
     getCart: () => {
         return instance.get('cart')
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     },
     addCart: (obj: DatabaseType) => {
         return instance.post('cart', obj)
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     },
     deleteCart: (id: number) => {
         return instance.delete(`cart/${id}`)
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     }
 }
 
@@ -45,17 +39,15 @@ export const favouritesApi = {
     getFavourites: () => {
         return instance.get('favourites')
             .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     },
     addFav: (obj: DatabaseType) => {
         return instance.post('favourites', obj)
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     },
     deleteFav: (id: number) => {
         return instance.delete(`favourites/${id}`)
-            .then(res => res.data)
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     }
 }
 

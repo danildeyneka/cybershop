@@ -1,17 +1,42 @@
 import {DatabaseType} from '../../@types/types'
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import {catalogApi} from '../../api/api'
 
 const initialState = {
     items: [] as DatabaseType[],
     loading: false,
-    error: null
 }
 
 export const setItems = createAsyncThunk(
     'catalog/setItems',
     async function () {
-        return await catalogApi.getItems()
+        const response = await catalogApi.getItems()
+        if (response?.status === 200) {
+            return response.data
+        }
+    }
+)
+
+export const addItem = createAsyncThunk(
+    'catalog/addItem',
+    async function (item: DatabaseType) {
+        const response = await catalogApi.addItem(item)
+        if (response?.status === 200) {
+            // actions.addItem(item)
+            // return response.data
+            setItems()
+        }
+    }
+)
+
+export const removeItem = createAsyncThunk(
+    'catalog/removeItem',
+    async function (id: number) {
+        const response = await catalogApi.deleteItem(id)
+        if (response?.status === 200) {
+            setItems()
+            // actions.deleteItem(id)
+        }
     }
 )
 
@@ -19,33 +44,24 @@ export const catalogSlice = createSlice({
         name: 'catalog',
         initialState,
         reducers: {
-            setItems: (state, action: PayloadAction<DatabaseType[]>) => {
-                state.items = action.payload
-            },
-            addItem: (state, action: PayloadAction<DatabaseType>) => {
-                state.items = [...state.items, action.payload]
-            }, // admin
-            removeItems: (state, action: PayloadAction<number>) => {
-                state.items.filter(i => i.id !== action.payload)
-            } // admin
+            // addItem: (state, {payload}) => {
+            //     state.items.push(payload)
+            // },
+            // deleteItem: (state, {payload}) => {
+            //     state.items.filter(i => i.id !== payload)
+            // }
         },
-        extraReducers: {
-            // @ts-ignore
-            [setItems.pending]: (state) => {
+        extraReducers: (builder) => {
+            builder.addCase(setItems.pending, (state) => {
                 state.loading = true
-            },
-            // @ts-ignore
-            [setItems.fulfilled]: (state, action) => {
+            })
+            builder.addCase(setItems.fulfilled, (state, {payload}) => {
                 state.loading = false
-                state.items = action.payload
-            },
-            // @ts-ignore
-            [setItems.rejected]: (state) => {
-                // state.loading = true
-            }
+                state.items = payload
+            })
         }
     }
 )
 
-export const catalogActions = catalogSlice.actions
+// const actions = catalogSlice.actions
 export default catalogSlice.reducer

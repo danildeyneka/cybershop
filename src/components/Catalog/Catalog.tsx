@@ -2,7 +2,7 @@ import {FC, useEffect} from 'react'
 import {Grid} from '@mui/material'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {catalogApi} from '../../api/api'
-import {catalogActions, setItems} from '../../redux/slices/CatalogSlice'
+import {setItems} from '../../redux/slices/CatalogSlice'
 import {Card} from '../Card/Card'
 import {Filters} from './Filters/Filters'
 
