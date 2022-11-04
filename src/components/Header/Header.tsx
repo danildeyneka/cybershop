@@ -5,7 +5,7 @@ import logo from '../../assets/images/logo.png'
 
 export const Header: FC = () => {
 
-    return <AppBar component='nav' position='relative' sx={{mb: 2, bgcolor: 'primary'}}>
+    return <AppBar component='nav' position='relative' sx={{mb: 4, bgcolor: 'primary'}}>
         <Toolbar sx={{display: 'flex', justifyContent: 'space-around'}}>
             <Box component={Link} to='admin' sx={{textDecoration: 'none', fontSize: 24}}>Admin</Box>
             <Link to='/'>

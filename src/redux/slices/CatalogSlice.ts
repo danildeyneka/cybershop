@@ -23,7 +23,6 @@ export const addItem = createAsyncThunk(
         const response = await catalogApi.addItem(item)
         if (response?.status === 200) {
             // actions.addItem(item)
-            // return response.data
             setItems()
         }
     }
@@ -34,8 +33,8 @@ export const removeItem = createAsyncThunk(
     async function (id: number) {
         const response = await catalogApi.deleteItem(id)
         if (response?.status === 200) {
-            setItems()
             // actions.deleteItem(id)
+            setItems()
         }
     }
 )
@@ -63,5 +62,5 @@ export const catalogSlice = createSlice({
     }
 )
 
-// const actions = catalogSlice.actions
+const actions = catalogSlice.actions
 export default catalogSlice.reducer
