@@ -1,9 +1,9 @@
 import {FC} from 'react'
-import {Box} from '@mui/material'
+import {Container} from '@mui/material'
 
 export const Footer: FC = () => {
 
-    return <Box component='footer' sx={{mt: 'auto'}}>
-footer
-    </Box>
+    return <Container component='footer' sx={{mt: 'auto', height: 32, textAlign: 'center'}}>
+        Online marketplace by Danil Deyneka @ 2022
+    </Container>
 }
