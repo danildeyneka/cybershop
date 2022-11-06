@@ -1,26 +1,27 @@
 import {FC, useEffect} from 'react'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
-import {cartApi} from '../../api/api'
-import {Card} from '../Card/Card'
-// import {cartActions} from '../../redux/slices/CartSlice'
+import {setCart} from '../../redux/slices/CartSlice'
+import {CartItem} from './CartItem'
+import {Grid} from '@mui/material'
 
 export const Cart: FC = () => {
-    const cart = useAppSelector(state => state.cart.cart)
-    const mappedCart = cart?.map(item => <Card i={item}/>)
+    const {cart, loading} = useAppSelector(state => state.cart)
+    const mappedCart = cart?.map(item => <CartItem i={item} key={item.id}/>)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const setData = async () => {
-            const data = await cartApi.getCart()
-            // dispatch(cartActions.setCart(data))
-        }
-        setData()
+        dispatch(setCart())
     }, [])
 
-    if (cart.length === 0) return <div>No items in cart</div>
+    if (loading) return <div>Loading...</div>
+    if (cart?.length === 0) return <div>No items in cart</div>
 
-    return <>
-cart
-        {mappedCart}
-    </>
+    return <Grid container>
+        <Grid item xs={8}>
+            {mappedCart}
+        </Grid>
+        <Grid item xs={3}>
+            checkout
+        </Grid>
+    </Grid>
 }

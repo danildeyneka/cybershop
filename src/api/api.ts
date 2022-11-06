@@ -29,24 +29,8 @@ export const cartApi = {
         return instance.post('cart', obj)
             .catch(err => console.error(err))
     },
-    deleteCart: (id: number) => {
+    removeCart: (id: number) => {
         return instance.delete(`cart/${id}`)
-            .catch(err => console.error(err))
-    }
-}
-
-export const favouritesApi = {
-    getFavourites: () => {
-        return instance.get('favourites')
-            .then(res => res.data)
-            .catch(err => console.error(err))
-    },
-    addFav: (obj: DatabaseType) => {
-        return instance.post('favourites', obj)
-            .catch(err => console.error(err))
-    },
-    deleteFav: (id: number) => {
-        return instance.delete(`favourites/${id}`)
             .catch(err => console.error(err))
     }
 }

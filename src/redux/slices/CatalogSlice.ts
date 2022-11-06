@@ -62,5 +62,4 @@ export const catalogSlice = createSlice({
     }
 )
 
-const actions = catalogSlice.actions
 export default catalogSlice.reducer
