@@ -3,9 +3,10 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {setCart} from '../../redux/slices/CartSlice'
 import {CartItem} from './CartItem'
 import {Grid} from '@mui/material'
+import {Loading} from '../../assets/svgs/loading'
 
 export const Cart: FC = () => {
-    const {cart, loading} = useAppSelector(state => state.cart)
+    const {cart, loading, removing} = useAppSelector(state => state.cart)
     const mappedCart = cart?.map(item => <CartItem i={item} key={item.id}/>)
     const dispatch = useAppDispatch()
 
@@ -20,8 +21,9 @@ export const Cart: FC = () => {
         <Grid item xs={8}>
             {mappedCart}
         </Grid>
-        <Grid item xs={3}>
+        <Grid item>
             checkout
+            {removing && <Loading/>}
         </Grid>
     </Grid>
 }

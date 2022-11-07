@@ -20,36 +20,21 @@ export const setItems = createAsyncThunk(
 export const addItem = createAsyncThunk(
     'catalog/addItem',
     async function (item: DatabaseType) {
-        const response = await catalogApi.addItem(item)
-        if (response?.status === 200) {
-            // actions.addItem(item)
-            setItems()
-        }
+        await catalogApi.addItem(item)
     }
 )
 
 export const removeItem = createAsyncThunk(
     'catalog/removeItem',
     async function (id: number) {
-        const response = await catalogApi.deleteItem(id)
-        if (response?.status === 200) {
-            // actions.deleteItem(id)
-            setItems()
-        }
+        await catalogApi.deleteItem(id)
     }
 )
 
 export const catalogSlice = createSlice({
         name: 'catalog',
         initialState,
-        reducers: {
-            // addItem: (state, {payload}) => {
-            //     state.items.push(payload)
-            // },
-            // deleteItem: (state, {payload}) => {
-            //     state.items.filter(i => i.id !== payload)
-            // }
-        },
+        reducers: {},
         extraReducers: (builder) => {
             builder.addCase(setItems.pending, (state) => {
                 state.loading = true

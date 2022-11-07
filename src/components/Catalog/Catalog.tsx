@@ -1,21 +1,24 @@
 import {FC, useEffect} from 'react'
-import {Grid} from '@mui/material'
+import {Box, Grid} from '@mui/material'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {setItems} from '../../redux/slices/CatalogSlice'
-import {Card} from '../Card/Card'
+import {CatalogItem} from './CatalogItem'
 import {Filters} from './Filters'
+import {Loading} from '../../assets/svgs/loading'
 
 export const Catalog: FC = () => {
     const {items, loading} = useAppSelector(state => state.catalog)
-    const mappedItems = items?.map(item => <Card i={item} key={item.id}/>)
+    const {adding} = useAppSelector(state => state.cart)
+    const mappedItems = items?.map(item => <CatalogItem i={item} key={item.id}/>)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(setItems())
     }, [])
 
-    if (loading) return <div>Loading...</div>
-    return (
+    if (loading) return <div>Loading...</div> // add skeleton
+    return (<>
+        {adding && <Loading/>}
         <Grid container>
             <Grid item xs={2}>
                 <Filters/>
@@ -25,5 +28,6 @@ export const Catalog: FC = () => {
                     {mappedItems}
                 </Grid>
             </Grid>
-        </Grid>)
+        </Grid>
+    </>)
 }

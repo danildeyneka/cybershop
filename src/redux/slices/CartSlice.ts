@@ -15,22 +15,14 @@ export const setCart = createAsyncThunk(
 export const addCart = createAsyncThunk(
     'cart/addItem',
     async function (item: DatabaseType) {
-        const response = await cartApi.addCart(item)
-        if (response?.status === 200) {
-            setCart()
-        }
+        await cartApi.addCart(item)
     }
 )
 
 export const removeCart = createAsyncThunk(
     'cart/removeItem',
     async function (id: number) {
-        const response = await cartApi.removeCart(id)
-        actions.removeCart(id)
-        if (response?.status === 200) {
-            console.log('adda')
-            setCart()
-        }
+        await cartApi.removeCart(id)
         return id
     }
 )
@@ -39,16 +31,11 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         cart: [] as DatabaseType[],
-        loading: false
+        loading: false,
+        adding: false,
+        removing: false
     },
-    reducers: {
-        // addCart: (state, {payload}) => {
-        //     state.cart.push(payload)
-        // },
-        removeCart: (state, {payload}) => {
-            state.cart.filter(i => i.id !== payload)
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(setCart.pending, state => {
             state.loading = true
@@ -57,16 +44,20 @@ export const cartSlice = createSlice({
             state.loading = false
             state.cart = payload
         })
-        builder.addCase(addCart.pending, state => {
-            state.loading = true
+        builder.addCase(addCart.pending, (state, {payload}) => {
+            state.adding = true
         })
         builder.addCase(addCart.fulfilled, state => {
-            state.loading = false
+            state.adding = false
+        })
+        builder.addCase(removeCart.pending, state => {
+            state.removing = true
         })
         builder.addCase(removeCart.fulfilled, (state, {payload}) => {
-            state.cart.filter(i => i.id !== payload)
+            state.removing = false
+            state.cart = state.cart.filter(i => i.id !== payload)
         })
-    },
+    }
 })
 
 export const actions = cartSlice.actions

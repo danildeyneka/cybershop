@@ -5,7 +5,7 @@ import cart from '../../assets/images/cart.png'
 import {useAppDispatch} from '../../hooks/hooks'
 import {addCart} from '../../redux/slices/CartSlice'
 
-export const Card: FC<{ i: DatabaseType }> = ({i}) => {
+export const CatalogItem: FC<{ i: DatabaseType }> = ({i}) => {
     const dispatch = useAppDispatch()
     const addToCart = (item: DatabaseType) => {
         dispatch(addCart(item))
@@ -24,7 +24,12 @@ export const Card: FC<{ i: DatabaseType }> = ({i}) => {
             }}>{i.oldPrice}{i.oldPrice && '₽'}</Typography>
             <Typography sx={{marginRight: 3}}>{i.price}₽</Typography>
             <Box component="img" src={cart} alt="cart"
-                 sx={{position: 'relative', width: 48, height: 48, bottom: 44, left: 48, cursor: 'pointer'}}
+                 sx={{
+                     position: 'relative', width: 48, height: 48, bottom: 44, left: 48, cursor: 'pointer',
+                     '&:hover': {
+                         bottom: 50
+                     }
+                 }}
                  onClick={() => addToCart(i)}/>
         </Box>
     </Grid>
