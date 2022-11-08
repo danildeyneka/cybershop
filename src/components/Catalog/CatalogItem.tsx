@@ -10,6 +10,7 @@ export const CatalogItem: FC<{ i: DatabaseType }> = ({i}) => {
     const addToCart = (item: DatabaseType) => {
         dispatch(addCart(item))
     }
+    // отключать кнопку при успешном ответе с сервера. но для одного айтема. как? с загрузкой та же тема
 
     return <Grid item xs={2} sx={{}}>
         <Box sx={{textAlign: 'center'}}>

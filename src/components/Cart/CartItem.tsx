@@ -16,7 +16,7 @@ export const CartItem: FC<{ i: DatabaseType }> = ({i}) => {
         <Typography sx={{height: 32}}>{i.brand} {i.name}</Typography>
         <Typography sx={{fontSize: 20, textDecoration: 'underline', color: 'secondary.main'}}>{i.price}₽</Typography>
         <Box component="img" src={xButton} alt="remove"
-             sx={{position: 'relative', width: 55, height: 55, bottom: 146, left: 248, cursor: 'pointer'}}
+             sx={{position: 'relative', width: 55, height: 55, bottom: 133, left: 248, cursor: 'pointer'}}
              onClick={() => removeFromCart(i.id)}/>
     </Box>
 }

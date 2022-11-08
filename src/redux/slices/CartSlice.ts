@@ -32,31 +32,31 @@ export const cartSlice = createSlice({
     initialState: {
         cart: [] as DatabaseType[],
         loading: false,
-        adding: false,
-        removing: false
+        awaiting: false
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(setCart.pending, state => {
-            state.loading = true
-        })
-        builder.addCase(setCart.fulfilled, (state, {payload}) => {
-            state.loading = false
-            state.cart = payload
-        })
-        builder.addCase(addCart.pending, (state, {payload}) => {
-            state.adding = true
-        })
-        builder.addCase(addCart.fulfilled, state => {
-            state.adding = false
-        })
-        builder.addCase(removeCart.pending, state => {
-            state.removing = true
-        })
-        builder.addCase(removeCart.fulfilled, (state, {payload}) => {
-            state.removing = false
-            state.cart = state.cart.filter(i => i.id !== payload)
-        })
+        builder
+            .addCase(setCart.pending, state => {
+                state.loading = true
+            })
+            .addCase(setCart.fulfilled, (state, {payload}) => {
+                state.loading = false
+                state.cart = payload
+            })
+            .addCase(addCart.pending, (state) => {
+                state.awaiting = true
+            })
+            .addCase(addCart.fulfilled, state => {
+                state.awaiting = false
+            })
+            .addCase(removeCart.pending, state => {
+                state.awaiting = true
+            })
+            .addCase(removeCart.fulfilled, (state, {payload}) => {
+                state.awaiting = false
+                state.cart = state.cart.filter(i => i.id !== payload)
+            })
     }
 })
 
