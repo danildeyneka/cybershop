@@ -2,35 +2,20 @@ import axios from 'axios'
 import {DatabaseType} from '../@types/types'
 
 const instance = axios.create({
-    baseURL: 'https://63086e9446372013f57d0917.mockapi.io/'
+    baseURL: 'https://63086e9446372013f57d0917.mockapi.io/database'
 })
 
 export const catalogApi = {
     getItems: () => {
-        return instance.get('database')
+        return instance.get('')
             .catch(err => console.error(err))
     },
     addItem: (obj: DatabaseType) => {
-        return instance.post('database', obj)
+        return instance.post('', obj)
             .catch(err => console.error(err))
     },
     deleteItem: (id: number) => {
-        return instance.delete(`database/${id}`)
-            .catch(err => console.error(err))
-    }
-}
-
-export const cartApi = {
-    getCart: () => {
-        return instance.get('cart')
-            .catch(err => console.error(err))
-    },
-    addCart: (obj: DatabaseType) => {
-        return instance.post('cart', obj)
-            .catch(err => console.error(err))
-    },
-    removeCart: (id: number) => {
-        return instance.delete(`cart/${id}`)
+        return instance.delete(`/${id}`)
             .catch(err => console.error(err))
     }
 }

@@ -2,13 +2,13 @@ import {FC} from 'react'
 import {DatabaseType} from '../../@types/types'
 import {Box, Typography} from '@mui/material'
 import {useAppDispatch} from '../../hooks/hooks'
-import {removeCart} from '../../redux/slices/CartSlice'
+import {actions} from '../../redux/slices/CartSlice'
 import xButton from '../../assets/images/x-button.png'
 
 export const CartItem: FC<{ i: DatabaseType }> = ({i}) => {
     const dispatch = useAppDispatch()
     const removeFromCart = (id: number) => {
-        dispatch(removeCart(id))
+        dispatch(actions.removeFromCart(id))
     }
 
     return <Box sx={{textAlign: 'center'}}>

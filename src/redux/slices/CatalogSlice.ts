@@ -4,7 +4,7 @@ import {catalogApi} from '../../api/api'
 
 const initialState = {
     items: [] as DatabaseType[],
-    loading: false,
+    loading: false
 }
 
 export const setItems = createAsyncThunk(
@@ -36,13 +36,14 @@ export const catalogSlice = createSlice({
         initialState,
         reducers: {},
         extraReducers: (builder) => {
-            builder.addCase(setItems.pending, (state) => {
-                state.loading = true
-            })
-            builder.addCase(setItems.fulfilled, (state, {payload}) => {
-                state.loading = false
-                state.items = payload
-            })
+            builder
+                .addCase(setItems.pending, (state) => {
+                    state.loading = true
+                })
+                .addCase(setItems.fulfilled, (state, {payload}) => {
+                    state.loading = false
+                    state.items = payload
+                })
         }
     }
 )

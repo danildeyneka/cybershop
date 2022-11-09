@@ -1,16 +1,27 @@
-import {FC} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {Box, Grid, Typography} from '@mui/material'
 import {DatabaseType} from '../../@types/types'
-import cart from '../../assets/images/cart.png'
-import {useAppDispatch} from '../../hooks/hooks'
-import {addCart} from '../../redux/slices/CartSlice'
+import cartImg from '../../assets/images/cart.png'
+import xButton from '../../assets/images/x-button.png'
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
+import {actions} from '../../redux/slices/CartSlice'
 
 export const CatalogItem: FC<{ i: DatabaseType }> = ({i}) => {
+    const {cart} = useAppSelector(state => state.cart)
+    const added = cart.map(i => i.id).includes(i.id) // checking item in cart by its unique id
     const dispatch = useAppDispatch()
     const addToCart = (item: DatabaseType) => {
-        dispatch(addCart(item))
+        dispatch(actions.addToCart(item))
     }
-    // отключать кнопку при успешном ответе с сервера. но для одного айтема. как? с загрузкой та же тема
+    const removeFromCart = (id: number) => {
+        dispatch(actions.removeFromCart(id))
+    }
+    const imgStyle = {
+        position: 'relative', width: 48, height: 48, bottom: 44, left: 48, cursor: 'pointer',
+        '&:hover': {
+            bottom: 50
+        }
+    }
 
     return <Grid item xs={2} sx={{}}>
         <Box sx={{textAlign: 'center'}}>
@@ -24,14 +35,15 @@ export const CatalogItem: FC<{ i: DatabaseType }> = ({i}) => {
                 marginTop: '5px'
             }}>{i.oldPrice}{i.oldPrice && '₽'}</Typography>
             <Typography sx={{marginRight: 3}}>{i.price}₽</Typography>
-            <Box component="img" src={cart} alt="cart"
-                 sx={{
-                     position: 'relative', width: 48, height: 48, bottom: 44, left: 48, cursor: 'pointer',
-                     '&:hover': {
-                         bottom: 50
-                     }
-                 }}
-                 onClick={() => addToCart(i)}/>
+            {!added && <Box component="img" src={cartImg} alt="cart"
+                     sx={imgStyle}
+                     onClick={() => addToCart(i)}/>}
+            {added && <Box component="img" src={xButton} alt="cart"
+                           sx={imgStyle}
+                           onClick={() => removeFromCart(i.id)}/>}
+            {/*<Box component="img" src={cartImg} alt="cart"*/}
+            {/*               sx={imgStyle}*/}
+            {/*               onClick={() => addToCart(i)}/>*/}
         </Box>
     </Grid>
 }

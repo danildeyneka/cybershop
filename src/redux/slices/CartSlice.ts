@@ -1,62 +1,24 @@
 import {DatabaseType} from '../../@types/types'
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {cartApi} from '../../api/api'
-
-export const setCart = createAsyncThunk(
-    'cart/setCart',
-    async function () {
-        const response = await cartApi.getCart()
-        if (response?.status === 200) {
-            return response.data
-        }
-    }
-)
-
-export const addCart = createAsyncThunk(
-    'cart/addItem',
-    async function (item: DatabaseType) {
-        await cartApi.addCart(item)
-    }
-)
-
-export const removeCart = createAsyncThunk(
-    'cart/removeItem',
-    async function (id: number) {
-        await cartApi.removeCart(id)
-        return id
-    }
-)
+import {createSlice} from '@reduxjs/toolkit'
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart: [] as DatabaseType[],
-        loading: false,
-        awaiting: false
+        cart: (JSON.parse(localStorage.getItem('cart') || '[]')) as DatabaseType[]
     },
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(setCart.pending, state => {
-                state.loading = true
-            })
-            .addCase(setCart.fulfilled, (state, {payload}) => {
-                state.loading = false
-                state.cart = payload
-            })
-            .addCase(addCart.pending, (state) => {
-                state.awaiting = true
-            })
-            .addCase(addCart.fulfilled, state => {
-                state.awaiting = false
-            })
-            .addCase(removeCart.pending, state => {
-                state.awaiting = true
-            })
-            .addCase(removeCart.fulfilled, (state, {payload}) => {
-                state.awaiting = false
-                state.cart = state.cart.filter(i => i.id !== payload)
-            })
+    reducers: {
+        addToCart: (state, {payload}) => {
+            state.cart.push(payload)
+            localStorage.setItem('cart', JSON.stringify(state.cart))
+        },
+        removeFromCart: (state, {payload}) => {
+            state.cart = state.cart.filter(i => i.id !== payload)
+            localStorage.setItem('cart', JSON.stringify(state.cart))
+        },
+        clearCart: (state) => {
+            state.cart = []
+            localStorage.setItem('cart', JSON.stringify([]))
+        }
     }
 })
 

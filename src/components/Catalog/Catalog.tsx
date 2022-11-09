@@ -4,11 +4,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {setItems} from '../../redux/slices/CatalogSlice'
 import {CatalogItem} from './CatalogItem'
 import {Filters} from './Filters'
-import {Loader} from '../../assets/svgs/loader'
 
 export const Catalog: FC = () => {
     const {items, loading} = useAppSelector(state => state.catalog)
-    const {awaiting} = useAppSelector(state => state.cart)
     const mappedItems = items?.map(item => <CatalogItem i={item} key={item.id}/>)
     const dispatch = useAppDispatch()
 
@@ -16,9 +14,10 @@ export const Catalog: FC = () => {
         dispatch(setItems())
     }, [])
 
+    useEffect(()=>{},[mappedItems])
+
     if (loading) return <div>Loading...</div> // add skeleton
-    return (<>
-        {awaiting && <Loader moveFromTopPx={220}/>}
+    return (
         <Grid container>
             <Grid item xs={2}>
                 <Filters/>
@@ -29,5 +28,5 @@ export const Catalog: FC = () => {
                 </Grid>
             </Grid>
         </Grid>
-    </>)
+    )
 }
