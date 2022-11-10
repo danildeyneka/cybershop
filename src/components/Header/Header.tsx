@@ -17,7 +17,12 @@ export const Header: FC = () => {
             </Link>
             <Box component={Link} to="cart"
                  sx={{textDecoration: 'none', fontSize: 24, color: 'primary.dark', width: 70}}>Cart
-                <Typography sx={{display: 'inline-block', position: 'relative', left: 5, bottom: 12}}>{itemsInCart !== 0 ? itemsInCart : ''}</Typography>
+                <Typography sx={{
+                    display: 'inline-block',
+                    position: 'relative',
+                    left: 5,
+                    bottom: 12
+                }}>{itemsInCart !== 0 ? itemsInCart : ''}</Typography>
             </Box>
         </Toolbar>
     </AppBar>

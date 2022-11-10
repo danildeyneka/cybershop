@@ -1,24 +1,20 @@
 import axios from 'axios'
 import {DatabaseType} from '../@types/types'
 
-const instance = axios.create({
-    baseURL: 'https://63086e9446372013f57d0917.mockapi.io/database'
+export const instance = axios.create({
+    baseURL: 'https://63086e9446372013f57d0917.mockapi.io/'
 })
 
-export const catalogApi = {
-    getItems: () => {
-        return instance.get('')
-            .catch(err => console.error(err))
+const db = [
+    {
+        name: 'admin',
+        password: 'admin'
     },
-    addItem: (obj: DatabaseType) => {
-        return instance.post('', obj)
-            .catch(err => console.error(err))
-    },
-    deleteItem: (id: number) => {
-        return instance.delete(`/${id}`)
-            .catch(err => console.error(err))
+    {
+        name: 'test',
+        password: 'test'
     }
-}
+]
 
 // const db: DatabaseType[] = [
 //     {

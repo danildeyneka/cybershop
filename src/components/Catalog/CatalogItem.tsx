@@ -36,14 +36,11 @@ export const CatalogItem: FC<{ i: DatabaseType }> = ({i}) => {
             }}>{i.oldPrice}{i.oldPrice && '₽'}</Typography>
             <Typography sx={{marginRight: 3}}>{i.price}₽</Typography>
             {!added && <Box component="img" src={cartImg} alt="cart"
-                     sx={imgStyle}
-                     onClick={() => addToCart(i)}/>}
-            {added && <Box component="img" src={xButton} alt="cart"
+                            sx={imgStyle}
+                            onClick={() => addToCart(i)}/>}
+            {added && <Box component="img" src={xButton} alt="xButton"
                            sx={imgStyle}
                            onClick={() => removeFromCart(i.id)}/>}
-            {/*<Box component="img" src={cartImg} alt="cart"*/}
-            {/*               sx={imgStyle}*/}
-            {/*               onClick={() => addToCart(i)}/>*/}
         </Box>
     </Grid>
 }

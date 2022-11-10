@@ -8,3 +8,8 @@ export type DatabaseType = {
     photo: string
     desc: string
 }
+
+export type UsersDataType = {
+    name: string
+    password: string
+}

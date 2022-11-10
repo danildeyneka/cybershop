@@ -1,6 +1,7 @@
 import {DatabaseType} from '../../@types/types'
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {catalogApi} from '../../api/api'
+import {catalogApi} from '../../api/catalogApi'
+
 
 const initialState = {
     items: [] as DatabaseType[],
