@@ -1,20 +1,21 @@
 import {FC, useEffect} from 'react'
 import {Grid} from '@mui/material'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
-import {setItems} from '../../redux/slices/CatalogSlice'
-import {CatalogItem} from './CatalogItem'
 import {Filters} from './Filters'
+import {Item} from '../Item/Item'
 
 export const Catalog: FC = () => {
     const {items, loading} = useAppSelector(state => state.catalog)
-    const mappedItems = items?.map(item => <CatalogItem i={item} key={item.id}/>)
+    const mappedItems = items?.map(item => <Grid item xs={2} key={item.id}>
+        <Item i={item}/>
+    </Grid>)
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(setItems())
-    }, [])
-
-    useEffect(()=>{},[mappedItems])
+    // useEffect(() => {
+    //     dispatch(setItems())
+    // }, [])
+    //
+    // useEffect(()=>{},[mappedItems])
 
     if (loading) return <div>Loading...</div> // add skeleton
     return (
@@ -23,7 +24,7 @@ export const Catalog: FC = () => {
                 <Filters/>
             </Grid>
             <Grid item xs={8}>
-                <Grid container spacing={5}>
+                <Grid container spacing={4}>
                     {mappedItems}
                 </Grid>
             </Grid>

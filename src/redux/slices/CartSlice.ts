@@ -1,7 +1,7 @@
 import {DatabaseType} from '../../@types/types'
 import {createSlice} from '@reduxjs/toolkit'
 
-export const cartSlice = createSlice({
+const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         cart: (JSON.parse(localStorage.getItem('cart') || '[]')) as DatabaseType[]
@@ -12,7 +12,7 @@ export const cartSlice = createSlice({
             localStorage.setItem('cart', JSON.stringify(state.cart))
         },
         removeFromCart: (state, {payload}) => {
-            state.cart = state.cart.filter(i => i.id !== payload)
+            state.cart = state.cart?.filter(i => i?.id !== payload)
             localStorage.setItem('cart', JSON.stringify(state.cart))
         },
         clearCart: (state) => {

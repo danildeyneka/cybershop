@@ -14,23 +14,25 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         usersData: [] as UsersDataType[],
-        authorized: JSON.parse(localStorage.getItem('auth') || 'false') as boolean,
-        awaiting: false as boolean
+        authorized: JSON.parse(localStorage.getItem('auth') || 'false'),
+        awaiting: false,
+        loginErr: false
     },
     reducers: {
         login: (state, {payload}) => {
-            if (
-                state.usersData?.forEach(user => (user.name === payload.name && user.password === payload.password))
-            ) {
+            if ((state.usersData[0]?.name === payload.name) && (state.usersData[0]?.password === payload.password)) {
                 state.authorized = true
+                state.loginErr = false
                 localStorage.setItem('auth', JSON.stringify('true'))
-            }
+            } else
+                state.authorized = false
+                state.loginErr = true
+                localStorage.setItem('auth', JSON.stringify('true'))
         },
         logout: (state) => {
             state.authorized = false
             localStorage.setItem('auth', JSON.stringify('false'))
         }
-
     },
     extraReducers: builder => {
         builder
@@ -43,3 +45,6 @@ const authSlice = createSlice({
             })
     }
 })
+
+export const actions = authSlice.actions
+export default authSlice.reducer

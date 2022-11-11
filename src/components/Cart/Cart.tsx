@@ -4,6 +4,7 @@ import {actions} from '../../redux/slices/CartSlice'
 import {CartItem} from './CartItem'
 import {Button, Grid, Typography} from '@mui/material'
 import {Loader} from '../../assets/svgs/loader'
+import {Item} from '../Item/Item'
 
 export const Cart: FC = () => {
     const {cart} = useAppSelector(state => state.cart)
