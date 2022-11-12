@@ -8,13 +8,11 @@ import {SingleItem} from './components/Catalog/SingleItem/SingleItem'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {setItems} from './redux/slices/CatalogSlice'
 import {useAppDispatch} from './hooks/hooks'
-import {getUsers} from './redux/slices/AuthSlice'
 
 export const App: FC = () => {
     const dispatch = useAppDispatch()
     useEffect(()=>{
         dispatch(setItems())
-        dispatch(getUsers())
     },[])
 
     return <>

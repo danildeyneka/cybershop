@@ -3,8 +3,6 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {actions} from '../../redux/slices/CartSlice'
 import {CartItem} from './CartItem'
 import {Button, Grid, Typography} from '@mui/material'
-import {Loader} from '../../assets/svgs/loader'
-import {Item} from '../Item/Item'
 
 export const Cart: FC = () => {
     const {cart} = useAppSelector(state => state.cart)
@@ -16,11 +14,8 @@ export const Cart: FC = () => {
     const clearCart = () => {
         dispatch(actions.clearCart())
     }
-    // console.log(JSON.parse(localStorage.getItem('cart')))
-    // useEffect(() => {
-    // }, [mappedCart])
 
-    if (cart?.length === 0) return <div>No items in cart</div>
+    if (cart?.length === 0) return <div style={{textAlign: 'center'}}>No items in cart</div>
 
     return <Grid container>
         <Grid item xs={8}>

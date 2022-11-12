@@ -2,33 +2,22 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import {authApi} from '../../api/authApi'
 import {UsersDataType} from '../../@types/types'
 
-export const getUsers = createAsyncThunk(
-    'auth/getUsers',
-    async function () {
-        const res = await authApi.getUsers()
-        return (res?.data)
+export const login = createAsyncThunk(
+    'auth/login',
+    async function (payload: UsersDataType) {
+        const users = await authApi.getUsers()
+        return (users?.data[0].name === payload.name) && (users?.data[0].password === payload.password);
     }
 )
 
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        usersData: [] as UsersDataType[],
-        authorized: JSON.parse(localStorage.getItem('auth') || 'false'),
+        authorized: JSON.parse(JSON.parse(localStorage.getItem('auth') || 'false')) as boolean, // boolean at init load was in string format that's why I doubled parse
         awaiting: false,
         loginErr: false
     },
     reducers: {
-        login: (state, {payload}) => {
-            if ((state.usersData[0]?.name === payload.name) && (state.usersData[0]?.password === payload.password)) {
-                state.authorized = true
-                state.loginErr = false
-                localStorage.setItem('auth', JSON.stringify('true'))
-            } else
-                state.authorized = false
-                state.loginErr = true
-                localStorage.setItem('auth', JSON.stringify('true'))
-        },
         logout: (state) => {
             state.authorized = false
             localStorage.setItem('auth', JSON.stringify('false'))
@@ -36,12 +25,13 @@ const authSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(getUsers.pending, state => {
+            .addCase(login.pending, state => {
                 state.awaiting = true
             })
-            .addCase(getUsers.fulfilled, (state, {payload}) => {
+            .addCase(login.fulfilled, (state, {payload}) => {
                 state.awaiting = false
-                state.usersData = payload
+                state.authorized = payload
+                localStorage.setItem('auth', JSON.stringify(payload))
             })
     }
 })
