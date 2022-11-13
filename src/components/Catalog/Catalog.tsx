@@ -1,13 +1,16 @@
-import {FC, useEffect} from 'react'
+import {FC, memo, useEffect, useState} from 'react'
 import {Grid} from '@mui/material'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {Filters} from './Filters'
 import {Item} from '../Item/Item'
+import {setItems} from '../../redux/slices/CatalogSlice'
 
-export const Catalog: FC = () => {
+export const Catalog: FC = memo(() => {
     const {items, loading} = useAppSelector(state => state.catalog)
-    const mappedItems = items?.map(item => <Grid item xs={2} key={item.id}>
-        <Item i={item}/>
+    const {authorized} = useAppSelector(state => state.auth)
+    const [adminMode, setAdminMode] = useState<boolean>(false)
+    const mappedItems = items?.map(item => <Grid item xs={2} key={item.uniqueId}>
+        <Item i={item} adminMode={adminMode}/>
     </Grid>)
     const dispatch = useAppDispatch()
 
@@ -15,7 +18,7 @@ export const Catalog: FC = () => {
     //     dispatch(setItems())
     // }, [])
     //
-    // useEffect(()=>{},[mappedItems])
+    // useEffect(()=>{},[])
 
     if (loading) return <div>Loading...</div> // add skeleton
     return (
@@ -28,6 +31,10 @@ export const Catalog: FC = () => {
                     {mappedItems}
                 </Grid>
             </Grid>
+            <Grid item xs={2}>
+                admin mode
+                <button onClick={() => setAdminMode(prevState => !prevState)}>admin</button>
+            </Grid>
         </Grid>
     )
-}
+})

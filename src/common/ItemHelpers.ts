@@ -5,8 +5,8 @@
 // export const addToCart = (dispatch: Dispatch, item: DatabaseType) => {
 //     dispatch(actions.addToCart(item))
 // }
-// export const removeFromCart = (dispatch: Dispatch, id: number) => {
-//     dispatch(actions.removeFromCart(id))
+// export const removeFromCart = (dispatch: Dispatch, uniqueId: number) => {
+//     dispatch(actions.removeFromCart(uniqueId))
 // }
 // export const imgStyle = {
 //     position: 'relative', width: 48, height: 48, bottom: 44, left: 48, cursor: 'pointer',

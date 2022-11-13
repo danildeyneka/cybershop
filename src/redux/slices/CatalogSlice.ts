@@ -22,13 +22,15 @@ export const addItem = createAsyncThunk(
     'catalog/addItem',
     async function (item: DatabaseType) {
         await catalogApi.addItem(item)
+        // await setItems()
     }
 )
 
-export const removeItem = createAsyncThunk(
+export const deleteItem = createAsyncThunk(
     'catalog/removeItem',
     async function (id: number) {
         await catalogApi.deleteItem(id)
+        // await setItems()
     }
 )
 

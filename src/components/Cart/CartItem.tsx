@@ -12,11 +12,13 @@ export const CartItem: FC<{ i: DatabaseType }> = ({i}) => {
     }
 
     return <Box sx={{textAlign: 'center'}}>
-        <Box component="img" src={i.photo} alt={i.name} sx={{width: 120, height: 120, objectFit: 'contain'}}/>
+        <Box component="img"
+             src={i.photo.endsWith('.webp') ? i.photo : 'https://img.icons8.com/ios/50/000000/new-product.png'}
+             alt={i.name} sx={{width: 120, height: 120, objectFit: 'contain'}}/>
         <Typography sx={{height: 32}}>{i.brand} {i.name}</Typography>
         <Typography sx={{fontSize: 20, textDecoration: 'underline', color: 'secondary.main'}}>{i.price}₽</Typography>
         <Box component="img" src={xButton} alt="remove"
              sx={{position: 'relative', width: 55, height: 55, bottom: 133, left: 248, cursor: 'pointer'}}
-             onClick={() => removeFromCart(i.id)}/>
+             onClick={() => removeFromCart(+i.uniqueId)}/>
     </Box>
 }

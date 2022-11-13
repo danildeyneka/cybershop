@@ -20,7 +20,7 @@ export const App: FC = () => {
         <main>
             <Routes>
                 <Route path="/" element={<Catalog/>}/>
-                <Route path=":id" element={<SingleItem/>}/>
+                <Route path=":uniqueId" element={<SingleItem/>}/>
                 <Route path="cart" element={<Cart/>}/>
                 <Route path="admin" element={<Admin/>}/>
                 <Route path="*" element={<Navigate to="/"/>}/>

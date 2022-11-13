@@ -4,10 +4,10 @@ import {useAppSelector} from '../../../hooks/hooks'
 import {Item} from '../../Item/Item'
 
 export const SingleItem: FC = () => {
-    const {id} = useParams()
+    const {uniqueId} = useParams()
     const {items} = useAppSelector(state => state.catalog)
-    const itemArr = items.filter(i => i.id === +id!)
-    const item = itemArr.map(i => <Item i={i} key={i.id} singleItem={true}/>)
+    const itemArr = items.filter(i => +i.uniqueId === +uniqueId!) // plus needed cuz mockapi stringifies numbers
+    const item = itemArr.map(i => <Item i={i} key={i.uniqueId} singleItem={true}/>)
 
     return <>
         {item}
