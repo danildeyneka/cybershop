@@ -11,11 +11,11 @@ import {useAppDispatch, useAppSelector} from './hooks/hooks'
 
 export const App: FC = () => {
     const dispatch = useAppDispatch()
-    const {rerender} = useAppSelector(state => state.catalog)
+    // const {rerender} = useAppSelector(state => state.catalog)
 
     useEffect(()=>{
         dispatch(setItems())
-    },[rerender])
+    },[])
 
     return <>
         <Header/>

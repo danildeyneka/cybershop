@@ -5,9 +5,9 @@ import {catalogApi} from '../../api/catalogApi'
 
 const initialState = {
     items: [] as DatabaseType[],
-    loading: false,
-    awaitingArr: [] as number[],
-    rerender: false // inits database rerender after admin action
+    loading: false, // skeleton
+    awaiting: false,
+    awaitingArr: [] as number[]
 }
 
 export const setItems = createAsyncThunk(
@@ -54,11 +54,11 @@ const catalogSlice = createSlice({
                     state.items = payload
                 })
                 .addCase(addItem.pending, (state) => {
-                    state.loading = true
+                    state.awaiting = true
                 })
-                .addCase(addItem.fulfilled, state => {
-                    state.loading = false
-                    state.rerender = !state.rerender
+                .addCase(addItem.fulfilled, (state, {payload}) => {
+                    state.awaiting = false
+                    state.items.push(payload)
                 })
                 .addCase(deleteItem.fulfilled, (state, {payload}) => {
                     state.awaitingArr = state.awaitingArr.filter(id => id !== payload)
