@@ -8,9 +8,8 @@ type propsType = {
 
 export const Loader: FC<propsType> = ({moveFromLeftPx = 0, moveFromTopPx = 0}) => {
     return <Box sx={{
-        position: 'fixed',
+        position: 'absolute',
         left: moveFromLeftPx,
-        right: 0,
         top: moveFromTopPx,
         margin: '0 auto',
         width: 400

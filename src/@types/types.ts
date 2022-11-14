@@ -1,10 +1,10 @@
 export type DatabaseType = {
-    uniqueId: string
+    id: string | number
     category: 'mouse' | 'keyboard' | 'headphones'
     brand: string
     name: string
-    oldPrice: null | number
-    price: number
+    oldPrice: null | number | string
+    price: number | string
     photo: string
     desc: string
 }

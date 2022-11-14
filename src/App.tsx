@@ -7,20 +7,22 @@ import {Admin} from './components/Admin/Admin'
 import {SingleItem} from './components/Catalog/SingleItem/SingleItem'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {setItems} from './redux/slices/CatalogSlice'
-import {useAppDispatch} from './hooks/hooks'
+import {useAppDispatch, useAppSelector} from './hooks/hooks'
 
 export const App: FC = () => {
     const dispatch = useAppDispatch()
+    const {rerender} = useAppSelector(state => state.catalog)
+
     useEffect(()=>{
         dispatch(setItems())
-    },[])
+    },[rerender])
 
     return <>
         <Header/>
         <main>
             <Routes>
                 <Route path="/" element={<Catalog/>}/>
-                <Route path=":uniqueId" element={<SingleItem/>}/>
+                <Route path=":id" element={<SingleItem/>}/>
                 <Route path="cart" element={<Cart/>}/>
                 <Route path="admin" element={<Admin/>}/>
                 <Route path="*" element={<Navigate to="/"/>}/>

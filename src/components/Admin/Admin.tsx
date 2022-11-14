@@ -1,19 +1,33 @@
 import {FC} from 'react'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
-import {actions, login} from '../../redux/slices/AuthSlice'
-import {Box, Button, Input, Paper, TextField, Typography} from '@mui/material'
+import {authActions} from '../../redux/slices/AuthSlice'
+import {Box, Button, Input, MenuItem, Paper, TextField, Typography} from '@mui/material'
 import {Login} from './Login'
 import {useForm} from 'react-hook-form'
 import {DatabaseType} from '../../@types/types'
 import {addItem} from '../../redux/slices/CatalogSlice'
 
 export const Admin: FC = () => {
-    const {authorized} = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
-    const {register, handleSubmit, formState: {errors}} = useForm<DatabaseType>()
+    const {authorized} = useAppSelector(state => state.auth)
+
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<DatabaseType>()
+
     const onSubmit = (data: DatabaseType) => {
-        console.log(data)
-        // dispatch(addItem(data))
+        dispatch(addItem(data))
+        reset() // refresh date.now
+    }
+    const addFake = () => {
+        dispatch(addItem({
+            'id': Date.now(),
+            'category': 'keyboard',
+            'brand': 'test1',
+            'name': 'test2',
+            'oldPrice': '4',
+            'price': '6',
+            'photo': 'test3',
+            'desc': 'test4'
+        }))
     }
     const inputStyle = {
         width: 320,
@@ -21,14 +35,25 @@ export const Admin: FC = () => {
     }
 
     if (authorized) return <>
-        <Button onClick={() => dispatch(actions.logout())}>LOGOUT</Button>
+        <Button onClick={() => dispatch(authActions.logout())}>LOGOUT</Button>
         <Paper sx={{width: 500, margin: '0 auto'}}>
             <Box component="form" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
                  onSubmit={handleSubmit(onSubmit)}>
-                <Typography variant="h2" sx={{fontSize: 32, mt: 1}}>Add new item</Typography>
-                <Input type="number" value={+Date.now()} {...register('uniqueId')} sx={{display: 'none'}}/>
-                <Input type="text" placeholder="Category" {...register('category', {required: true})}
-                       inputProps={{style: {textAlign: 'center'}}} sx={inputStyle}/>
+
+                {/*only for your testing*/}
+                <Button onClick={() => {
+                    addFake()
+                }}>add fake item fast</Button>
+                {/*only for your testing*/}
+
+                <Typography variant="h2" sx={{fontSize: 32, mb: 1}}>Add new item</Typography>
+                <Input type="number" value={Date.now()} {...register('id')} sx={{display: 'none'}}/>
+                <TextField select defaultValue="keyboard" {...register('category', {required: true})}
+                           style={inputStyle}>
+                    <MenuItem value="keyboard">keyboard</MenuItem>
+                    <MenuItem value="mouse">mouse</MenuItem>
+                    <MenuItem value="headphones">headphones</MenuItem>
+                </TextField>
                 <Input type="text" placeholder="Brand" {...register('brand', {required: true})}
                        inputProps={{style: {textAlign: 'center'}}} sx={inputStyle}/>
                 <Input type="text" placeholder="Name" {...register('name', {required: true})}
