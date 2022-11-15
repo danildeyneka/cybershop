@@ -1,31 +1,15 @@
 import {FC} from 'react'
 import {login} from '../../redux/slices/AuthSlice'
-import {useAppDispatch} from '../../hooks/hooks'
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {useForm} from 'react-hook-form'
 import {UsersDataType} from '../../@types/types'
 import {Box, Button, Input, Paper, Typography} from '@mui/material'
-
-const Error: FC = () => {
-    return <Box sx={{
-        position: 'relative',
-        right: 88,
-        bottom: 20,
-        // display: 'block',
-        color: 'secondary.main',
-        '&::after': {
-            content: '""',
-            position: 'absolute',
-            display: 'block',
-            height: '2px',
-            width: 182,
-            backgroundColor: 'secondary.main',
-            border: '1px',
-        }
-    }}>*</Box>
-}
+import {ValidationError} from '../../assets/common/Error/ValidationError'
+import {Loader} from '../../assets/svgs/loader'
 
 export const Login: FC = () => {
     const dispatch = useAppDispatch()
+    const {awaiting} = useAppSelector(state => state.auth)
     const {register, handleSubmit, formState: {errors}} = useForm<UsersDataType>()
     const onSubmit = (data: UsersDataType) => {
         dispatch(login(data))
@@ -42,15 +26,17 @@ export const Login: FC = () => {
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
+            position: 'relative'
         }} onSubmit={handleSubmit(onSubmit)}>
-            {error && <Typography sx={{position: 'absolute', top: 280, color: 'secondary.main'}}>* Required</Typography>}
+            {awaiting && <Loader moveFromTopPx={-65} moveFromLeftPx={-50}/>}
+            {error && <Typography sx={{position: 'absolute', top: 80, color: 'secondary.main'}}>* Required</Typography>}
             <Input type="text" placeholder="Name" {...register('name', {required: true})}
                    inputProps={{style: {textAlign: 'center'}}}/>
-            {error && <Error/>}
+            {errors.name && <ValidationError widthInPx={182}/>}
             <Input type="password" placeholder="Password" {...register('password', {required: true})}
                    inputProps={{style: {textAlign: 'center'}}}/>
-            {error && <Error/>}
+            {errors.password && <ValidationError widthInPx={182}/>}
 
             <Button type="submit" sx={{
                 mt: 5,

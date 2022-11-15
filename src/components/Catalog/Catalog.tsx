@@ -2,7 +2,7 @@ import {FC, memo, useState} from 'react'
 import {Grid} from '@mui/material'
 import {useAppSelector} from '../../hooks/hooks'
 import {Filters} from './Filters'
-import {Item} from '../Item/Item'
+import {Item} from '../../assets/common/Item/Item'
 
 export const Catalog: FC = memo(() => {
     const {items, loading} = useAppSelector(state => state.catalog)

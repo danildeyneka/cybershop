@@ -14,8 +14,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         authorized: JSON.parse(JSON.parse(localStorage.getItem('auth') || 'false')) as boolean, // boolean at init load was in string format that's why I doubled parse
-        awaiting: false,
-        loginErr: false
+        awaiting: false
     },
     reducers: {
         logout: (state) => {
