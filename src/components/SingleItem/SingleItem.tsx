@@ -1,7 +1,7 @@
 import {FC} from 'react'
 import {useParams} from 'react-router-dom'
-import {useAppSelector} from '../../../hooks/hooks'
-import {Item} from '../../../assets/common/Item/Item'
+import {useAppSelector} from '../../hooks/hooks'
+import {Item} from '../common/Item/Item'
 
 export const SingleItem: FC = () => {
     const {id} = useParams()

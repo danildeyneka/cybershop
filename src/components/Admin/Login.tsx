@@ -4,8 +4,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {useForm} from 'react-hook-form'
 import {UsersDataType} from '../../@types/types'
 import {Box, Button, Input, Paper, Typography} from '@mui/material'
-import {ValidationError} from '../../assets/common/Error/ValidationError'
-import {Loader} from '../../assets/svgs/loader'
+import {ValidationError} from '../common/Error/ValidationError'
+import {Loader} from '../common/Loader/loader'
 
 export const Login: FC = () => {
     const dispatch = useAppDispatch()

@@ -6,7 +6,7 @@ import {Login} from './Login'
 import {useForm} from 'react-hook-form'
 import {DatabaseType} from '../../@types/types'
 import {addItem} from '../../redux/slices/CatalogSlice'
-import {ValidationError} from '../../assets/common/Error/ValidationError'
+import {ValidationError} from '../common/Error/ValidationError'
 
 export const Admin: FC = () => {
     const dispatch = useAppDispatch()

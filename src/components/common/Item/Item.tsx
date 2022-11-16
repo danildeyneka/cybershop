@@ -1,13 +1,13 @@
 import {FC} from 'react'
 import {Box, Typography} from '@mui/material'
 import {Link} from 'react-router-dom'
-import cartImg from '../../images/cart.png'
-import xButton from '../../images/x-button.png'
+import cartImg from '../../../assets/images/cart.png'
+import xButton from '../../../assets/images/x-button.png'
 import {DatabaseType} from '../../../@types/types'
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks'
 import {cartActions} from '../../../redux/slices/CartSlice'
 import {catalogActions, deleteItem} from '../../../redux/slices/CatalogSlice'
-import {Loader} from '../../svgs/loader'
+import {Loader} from '../Loader/loader'
 
 type propsT = {
     i: DatabaseType

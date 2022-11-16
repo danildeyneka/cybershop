@@ -5,10 +5,9 @@ import {CartItem} from './CartItem'
 import {Button, Grid, Typography} from '@mui/material'
 
 export const Cart: FC = () => {
+    const dispatch = useAppDispatch()
     const {cart} = useAppSelector(state => state.cart)
     const mappedCart = cart?.map(item => <CartItem i={item} key={item.id}/>)
-    console.log(mappedCart)
-    const dispatch = useAppDispatch()
     const totalPrice = cart?.reduce((acc, i) => acc + +i.price, 0)
     const totalDiscount = cart?.reduce((acc, i) => acc + ((+i.oldPrice! ?? +i.price) - +i.price), 0) // expression in braces needed to avoid negative outcome because of null case of some oldPrice values
 
@@ -23,9 +22,10 @@ export const Cart: FC = () => {
             {mappedCart}
         </Grid>
         <Grid item>
-            <Button onClick={clearCart}>clear cart</Button>
-            <Typography>Your discount is {totalDiscount} ₽</Typography>
-            <Typography> {totalPrice} ₽ </Typography>
+            <Button onClick={clearCart} sx={{fontSize: 22}}>clear cart</Button>
+            <Typography>Your discount is {totalDiscount} ₽</Typography><br/>
+            <Typography>Total: {totalPrice} ₽ </Typography>
+            <Button onClick={() => alert('Your order is placed')} sx={{fontSize: 22}}>Checkout</Button>
         </Grid>
     </Grid>
 }
