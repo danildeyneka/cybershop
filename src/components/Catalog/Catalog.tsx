@@ -11,18 +11,21 @@ export const Catalog: FC = memo(() => {
     const [adminMode, setAdminMode] = useState<boolean>(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
-    const searchQuery = searchParams.get('search') || ''
-    console.log(searchParams)
+    const searchQuery = searchParams.get('search')?.toLowerCase() || ''
+    const filterQuery = searchParams.get('filter') || 'All'
 
-    const mappedItems = items?.map(item => <Grid item xs={2} key={item.id}>
-        <Item i={item} adminMode={adminMode}/>
-    </Grid>)
+    const mappedItems = items?.filter(i => (i.name + ' ' + i.brand + ' ' + i.desc).toLowerCase().includes(searchQuery))
+        .filter(i => (i.category === (filterQuery === 'All' ? i.category : filterQuery)))
+        .map(item =>
+            <Grid item xs={2} key={item.id}>
+                <Item i={item} adminMode={adminMode}/>
+            </Grid>)
 
     if (loading) return <div>Loading...</div> // add skeleton
     return (
         <Grid container>
             <Grid item xs={3}>
-                <Sidebar setSearchParams={setSearchParams} searchQuery={searchQuery}/>
+                <Sidebar setSearchParams={setSearchParams} searchQuery={searchQuery} filterQuery={filterQuery}/>
             </Grid>
             <Grid item xs={8}>
                 <Grid container spacing={4}>
