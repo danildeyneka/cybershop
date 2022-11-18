@@ -13,7 +13,7 @@ export const login = createAsyncThunk(
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        authorized: JSON.parse(JSON.parse(localStorage.getItem('auth') || 'false')) as boolean, // boolean at init load was in string format that's why I doubled parse
+        authorized: JSON.parse(JSON.parse(localStorage.getItem('auth') || 'false')) as boolean, // boolean at init load was in string format that's why I double parsed
         awaiting: false
     },
     reducers: {

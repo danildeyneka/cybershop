@@ -11,10 +11,11 @@ export const Login: FC = () => {
     const dispatch = useAppDispatch()
     const {awaiting} = useAppSelector(state => state.auth)
     const {register, handleSubmit, formState: {errors}} = useForm<UsersDataType>()
+    const error = (errors.password || errors.name)
+
     const onSubmit = (data: UsersDataType) => {
         dispatch(login(data))
     }
-    const error = (errors.password || errors.name)
 
     return <Paper sx={{
         width: 300,

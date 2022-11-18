@@ -17,45 +17,24 @@ export const Admin: FC = () => {
 
     const onSubmit = (data: DatabaseType) => {
         dispatch(addItem(data))
-        reset() // refresh date.now
+        reset() // to refresh date.now
     }
     const inputStyle = {
         width: 320,
-        mt: 1
-    }
-
-    const addFake = () => {
-        dispatch(addItem({
-            'id': Date.now(),
-            'category': 'keyboard',
-            'brand': 'test1',
-            'name': 'test2',
-            'oldPrice': '4',
-            'price': '6',
-            'photo': 'test3',
-            'desc': 'test4'
-        }))
+        mt: 1,
     }
 
     if (authorized) return <>
-        <Button onClick={() => dispatch(authActions.logout())}>LOGOUT</Button>
+        <Button variant='contained' sx={{ml: 38, '&:hover': {color: '#fff'}}} onClick={() => dispatch(authActions.logout())}>LOGOUT</Button>
         <Paper sx={{width: 500, margin: '0 auto'}}>
             <Box component="form" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
                  onSubmit={handleSubmit(onSubmit)}>
-
-                {/*only for your testing*/}
-                <Button onClick={() => {
-                    addFake()
-                }}>add fake item fast</Button>
-                {/*only for your testing*/}
-
                 {error &&
                     <Typography sx={{position: 'absolute', top: 542, color: 'secondary.main'}}>* Required</Typography>}
-
-                <Typography variant="h2" sx={{fontSize: 32, mb: 1}}>Add new item</Typography>
+                <Typography variant="h3" sx={{fontSize: 32, mb: 1, lineHeight: 1.5}}>Add new item</Typography>
                 <Input type="number" value={Date.now()} {...register('id')} sx={{display: 'none'}}/>
                 <TextField select defaultValue="keyboard" {...register('category')}
-                           style={inputStyle}>
+                           style={inputStyle} sx={{textAlign: 'center'}}>
                     <MenuItem value="keyboard">keyboard</MenuItem>
                     <MenuItem value="mouse">mouse</MenuItem>
                     <MenuItem value="headphones">headphones</MenuItem>
