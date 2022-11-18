@@ -19,7 +19,7 @@
 - [x] Filtering
 - [x] Ugly UI
 
-[//]: # (### [live demo]&#40;&#41;)
+### [live demo](https://cybershop.netlify.app/)
 
 ### `npm install`
 

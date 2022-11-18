@@ -54,7 +54,7 @@ export const Sidebar: FC<propsT> = ({
                     <Button variant="contained" sx={buttonStyle} style={{marginTop: 50}}
                             onClick={() => {
                                 props.setAdminMode(prevState => !prevState)
-                                alert('Please do not remove the actual items, you can play around with new-added items via admin panel')
+                                if (!props.adminMode) alert('Please do not remove the actual items, you can play around with new-added items via admin panel')
                             }}>
                         Edit mode {props.adminMode ? 'on' : 'off'}</Button>}
             </form>

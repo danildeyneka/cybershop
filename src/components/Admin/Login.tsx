@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import {login} from '../../redux/slices/AuthSlice'
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks'
 import {useForm} from 'react-hook-form'
@@ -16,6 +16,11 @@ export const Login: FC = () => {
     const onSubmit = (data: UsersDataType) => {
         dispatch(login(data))
     }
+
+    useEffect(() => {
+        alert(`name: admin
+pass: admin`)
+    }, [])
 
     return <Paper sx={{
         width: 300,
