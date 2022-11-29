@@ -19,6 +19,7 @@
 - [x] Search with queries
 - [x] Filtering
 - [x] Ugly UI
+- [x] Basic tests
 
 ### `npm install`
 
