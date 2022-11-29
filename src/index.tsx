@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.scss'
 import App from './App'
 import {Provider} from 'react-redux'
-import {store} from './redux/store'
+import {setupStore} from './redux/store'
 import {BrowserRouter} from 'react-router-dom'
 import {createTheme, ThemeProvider} from '@mui/material'
 
@@ -25,7 +25,7 @@ const root = ReactDOM.createRoot(
 )
 root.render(
     <BrowserRouter>
-        <Provider store={store}>
+        <Provider store={setupStore()}>
             <ThemeProvider theme={theme}>
                 <App/>
             </ThemeProvider>
