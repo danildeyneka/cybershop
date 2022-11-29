@@ -1,4 +1,5 @@
 # E-commerce marketplace
+## [live demo](https://cybershop.netlify.app/)
 
 ## Stack
 
@@ -18,8 +19,6 @@
 - [x] Search with queries
 - [x] Filtering
 - [x] Ugly UI
-
-### [live demo](https://cybershop.netlify.app/)
 
 ### `npm install`
 
